@@ -1,8 +1,8 @@
 import './index.css'
 import Carousel from './pages/Carousel/Carousel'
 import DetailProfile from './pages/DetailProfile/DetailProfile'
-import Main from './layouts/Main'
 import Profiles from './pages/Profiles/Profiles'
+import Main from './layouts/Main/Main'
 
 function App() {
   return (
@@ -10,11 +10,9 @@ function App() {
       {/* <Carousel /> */}
       {/* <DetailProfile /> */}
       {/* <Profiles /> */}
-
-      <Main>
+      <Main texto='la propiedad children se genera cuando el componente tiene hijos'>
         <Carousel />
       </Main>
-
     </>
   )
 }
