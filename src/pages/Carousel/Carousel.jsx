@@ -1,45 +1,51 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import perfiles from '../../perfiles'
-import Boton from '../Boton/Boton'
-import ComidaHobby from '../ComidaHobby/ComidaHobby'
-import EdadFechaMail from '../EdadFechaMail/EdadFechaMail'
-import NombreFoto from '../NombreFoto/NombreFoto'
+import Boton from '../../components/Boton/Boton'
+import ComidaHobby from '../../components/ComidaHobby/ComidaHobby'
+import EdadFechaMail from '../../components/EdadFechaMail/EdadFechaMail'
+import NombreFoto from '../../components/NombreFoto/NombreFoto'
 
-export default function Card() {
+export default function Carousel() {
   
   let [numero,setNumero] = useState(0)
-  let [abrir,setAbrir] =useState(false)
+  let [abrir,setAbrir] = useState(false)
+  let [timeId,setTimeId] = useState(0)
 
-  let next = () => {
+  useEffect(() => {
+    let id = setInterval(()=> {
+        console.log('pasaron 5 segundos')
+        next()        
+      },5000
+    )
+    //setInterval retorna un id necesario para "resetear el contador" y es necesario retornarlo para utilizarlo
+    setTimeId(id)
+    //para que el intervalo se borre correctamente debemos retornar la funcion que va a limpiar el contador de tiempo
+    return ()=> clearInterval(timeId)
+}, [numero])
+
+
+  function next() {
     if (numero<perfiles.length-1) {
       setNumero(numero+1)
     } else {
       setNumero(0)
     }    
+    console.log('se ejecutó next');
+    clearInterval(timeId)
   }
 
-  let prev = () => {
+  function prev() {
     if (numero>0) {
       setNumero(numero-1)
     } else {
       setNumero(perfiles.length-1)
-    }    
+    }
+    clearInterval(timeId)
   }
 
   let open = () => {
     setAbrir(!abrir)
   }
-
-  //PRIMERO RENDERIZO CON INDEX 0
-  
-  //DESCOMPONGO
-    //NOMBRE-FOTO CON PROPS
-    //BOTONES
-    //COMIDA-HOBBY DESESTRUCTURANDO
-  
-  //EVENTO PARA ANTERIOR-SIGUIENTE
-  
-  //LUEGO DESPLEGABLE
 
   return (
     <div className='card black'>
