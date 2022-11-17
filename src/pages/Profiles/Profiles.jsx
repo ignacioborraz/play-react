@@ -12,6 +12,7 @@ export default function Profiles() {
       },
     []
   )
+  console.log(datos)
   
   return (
     <div className='flex wrap'>

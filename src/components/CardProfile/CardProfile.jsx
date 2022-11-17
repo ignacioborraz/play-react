@@ -1,9 +1,11 @@
 import ComidaHobby from '../ComidaHobby/ComidaHobby'
 import EdadFechaMail from '../EdadFechaMail/EdadFechaMail'
 import NombreFoto from '../NombreFoto/NombreFoto'
+import {Link as LinkRouter} from "react-router-dom"
 
 export default function CardProfile({datos}) {
   return (
+    <LinkRouter to={`/profile/:${'ver que ponemos aca'}`}>
     <div className='card black'>
       <NombreFoto nombre={datos.nombre} foto={datos.foto}/>
       <div className='edad-fecha'>
@@ -14,6 +16,7 @@ export default function CardProfile({datos}) {
       <ComidaHobby campo='Comidas' datos={datos.comidas} />
       <ComidaHobby campo='Hobbies' datos={datos.hobbies} />
     </div>
+    </LinkRouter>
   )
 
 }
