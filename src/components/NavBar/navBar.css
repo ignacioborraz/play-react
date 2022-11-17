@@ -1,0 +1,25 @@
+.NavBar-container {
+    width: 100%;
+    color: rgb(210,210,210);
+    background-color: rgb(40,40,40);
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.NavBar-link {
+    height: 40px;
+    padding: 5px;
+    margin: 5px;
+    color: rgb(210,210,210);
+    background-color: rgb(130,40,60);
+    border-radius: 5px;
+    font-size: 1.25rem;
+    text-decoration: none;
+}
+
+.NavBar-link:hover {
+    color: rgb(210,210,210);
+    background-color: rgba(130,40,60,0.8);
+}
