@@ -1,29 +1,25 @@
 import React, {useEffect,useState} from 'react'
+import axios from 'axios'
 import CardProfile from '../../components/CardProfile/CardProfile'
+import apiUrl from './../../url'
 
 export default function Profiles() {
-  let [perfiles,setPerfiles] = useState([])
-  useEffect(()=> {
-    fetch('./perfiles.json')
-      .then(res=>res.json())
-      .then(res=> setPerfiles(res))
-      .catch(error=> console.log(error.message))
-      // eslint-disable-next-line
-  },[])
 
-  let [datos,setDatos] = useState()
-  useEffect(
-    () => {
-      fetch('./perfiles.json')
-        .then(res=>res.json())
-        .then(res=>setDatos(res))
-      },
-    []
-  )
-  console.log(datos)
+  let [perfiles,setPerfiles] = useState([])
+
+  useEffect(()=> {fetchApi()},[])
+
+  async function fetchApi() {
+    try {
+      let res = await axios.get(apiUrl+'usuarios')
+      setPerfiles(res.data.response)
+    } catch(error) {
+      console.log(error.message)
+    }
+  }
   
   return (
-    <div className='flex wrap'>
+    <div className='flex j-center wrap'>
       {perfiles?.map((cadaPerfil,index) => <CardProfile key={index} datos={cadaPerfil}/>)}
     </div>
   )
