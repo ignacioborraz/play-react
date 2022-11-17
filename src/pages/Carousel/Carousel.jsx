@@ -9,19 +9,24 @@ export default function Carousel() {
   
   let [numero,setNumero] = useState(0)
   let [abrir,setAbrir] = useState(false)
-  let [timeId,setTimeId] = useState(0)
-
-  useEffect(() => {
-    let id = setInterval(()=> {
-        console.log('pasaron 5 segundos')
-        next()        
-      },5000
-    )
-    //setInterval retorna un id necesario para "resetear el contador" y es necesario retornarlo para utilizarlo
-    setTimeId(id)
-    //para que el intervalo se borre correctamente debemos retornar la funcion que va a limpiar el contador de tiempo
-    return ()=> clearInterval(timeId)
-}, [numero])
+  let [id,setId] = useState(0)
+  useEffect(
+    ()=>{  
+      let idInterval = setInterval(
+        //primer parametro la funcion que se va a ejecutar en cada intervalo de tiempo
+        ()=> {
+            next()
+            console.log('pasaron 5 segundos')
+        },
+        //segundo parametro es el intervalo en milisengudos
+        5000
+        //retorna un id asociado al intervalo (que es un numero)
+        //acepta una funcion que resetea el intervalo/contador con ese id
+      )
+      setId(idInterval)
+      return clearInterval(id)
+      // eslint-disable-next-line
+    },[numero])
 
 
   function next() {
@@ -30,8 +35,8 @@ export default function Carousel() {
     } else {
       setNumero(0)
     }    
-    console.log('se ejecutó next');
-    clearInterval(timeId)
+    console.log('se ejecutó next')
+    clearInterval(id)
   }
 
   function prev() {
@@ -40,7 +45,8 @@ export default function Carousel() {
     } else {
       setNumero(perfiles.length-1)
     }
-    clearInterval(timeId)
+    console.log('se ejecutó prev')
+    clearInterval(id)
   }
 
   let open = () => {
@@ -70,14 +76,3 @@ export default function Carousel() {
   )
 
 }
-
-/*
-COMO alumno de la app
-QUIERO pasar los slides
-PARA ver los perfiles de cada mentor
-*/
-/*
-COMO usuario de la app
-QUIERO clickear un boton
-PARA ver/ocultar detalles de los mentores
-*/

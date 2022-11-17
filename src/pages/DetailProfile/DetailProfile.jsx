@@ -6,7 +6,6 @@ import {useParams} from 'react-router-dom'
 
 export default function DetailProfile() {
   let {numero} = useParams()
-  console.log(perfiles[numero].foto)
   return (
     <div className='card black'>
       <NombreFoto nombre={perfiles[numero].nombre} foto={perfiles[numero].foto}/>

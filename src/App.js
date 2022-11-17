@@ -1,7 +1,6 @@
 import './index.css'
 import Carousel from './pages/Carousel/Carousel'
 import DetailProfile from './pages/DetailProfile/DetailProfile'
-import Main from './layouts/Main'
 import Profiles from './pages/Profiles/Profiles'
 import {Routes,Route} from 'react-router-dom'
 
