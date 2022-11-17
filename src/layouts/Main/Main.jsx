@@ -1,4 +1,5 @@
 import React from 'react'
+import MyAlert from '../../components/MyAlert/MyAlert'
 import NavBar from '../../components/NavBar/NavBar'
 
 export default function Main(props) {
@@ -9,6 +10,7 @@ export default function Main(props) {
         <NavBar />
         <div className='flex column a-center grow black'>{props.children}</div>
         <div>FOOTER</div>
+        <MyAlert />
     </div>
   )
 }
