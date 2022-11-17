@@ -76,14 +76,3 @@ export default function Carousel() {
   )
 
 }
-
-/*
-COMO alumno de la app
-QUIERO pasar los slides
-PARA ver los perfiles de cada mentor
-*/
-/*
-COMO usuario de la app
-QUIERO clickear un boton
-PARA ver/ocultar detalles de los mentores
-*/

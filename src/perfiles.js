@@ -25,6 +25,15 @@ let data = [
         mail: "alejandro@zvi.com",
         comidas: ["lomito","atun","pure"],
         hobbies: ["enseñar"]
+    },
+    {
+        nombre: "Mindy",
+        edad: 0,
+        nacimiento: "3/1/2022",
+        foto: "./img/sujeto4.png",
+        mail: "notengo@mail.com",
+        comidas: ["tomate","frutilla","palomas"],
+        hobbies: ["hurgar","romper"]
     }
 ]
 

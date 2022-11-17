@@ -2,18 +2,17 @@ import './index.css'
 import Carousel from './pages/Carousel/Carousel'
 import DetailProfile from './pages/DetailProfile/DetailProfile'
 import Profiles from './pages/Profiles/Profiles'
-import Main from './layouts/Main/Main'
+import {Routes,Route} from 'react-router-dom'
 
 function App() {
   return (
-    <>
-      {/* <Carousel /> */}
-      {/* <DetailProfile /> */}
-      {/* <Profiles /> */}
-      <Main texto='la propiedad children se genera cuando el componente tiene hijos'>
-        <Carousel />
-      </Main>
-    </>
+      <Main>
+        <Routes>
+          <Route path="/" element={<Carousel />} />
+          <Route path="profiles" element={<Profiles />} />
+          <Route path="profile/:numero" element={<DetailProfile />} />
+        </Routes>  
+      </Main>     
   )
 }
 
