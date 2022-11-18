@@ -7,7 +7,7 @@ const obtenerUsuarios = createAsyncThunk('obtenerUsuarios', async (value) => {
     try {
         let res = await axios.get(url)
         //console.log(res.data.response)
-        return [value,res.data.response]
+        return {value,perfiles: res.data.response}
     } catch (error) {
         console.log(error)
         return {

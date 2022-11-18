@@ -13,13 +13,7 @@ const userReducer = createReducer(initialState,
         builder
         .addCase(obtenerUsuarios.fulfilled, (state, action) => {
             //console.log(action.payload)
-            let newState = {
-                ...state,
-                value: action.payload[0],
-                perfiles: action.payload[1]
-            }
-            //console.log(newState)
-            return newState
+            return action.payload
         })
     }
 )
