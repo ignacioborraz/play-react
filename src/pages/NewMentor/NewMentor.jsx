@@ -25,7 +25,7 @@ export default function NewMentor() {
         })
         try {
             let res = await axios.post(apiUrl+'usuarios',data)
-            console.log(res.data.message)
+            //console.log(res.data.message)
             if (res.data.success) {
                 alert('creado!')
             } else {

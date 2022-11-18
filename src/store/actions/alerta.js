@@ -1,7 +1,7 @@
 import { createAction } from '@reduxjs/toolkit'
 
 const alerta = createAction('alerta', (data) => {
-    console.log(data)
+    //console.log(data)
     return {
         payload: data
     }
