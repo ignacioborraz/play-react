@@ -1,8 +1,7 @@
 import { useRef } from 'react'
 import { useDispatch } from 'react-redux'
 import alertActions from '../../store/actions/alerta'
-import axios from 'axios'
-import apiUrl from './../../url'
+import userActions from './../../store/actions/usuario'
 import './newMentor.css'
 
 export default function NewMentor() {
@@ -10,6 +9,7 @@ export default function NewMentor() {
     let form = useRef()
     let dispatch = useDispatch()
     let { alerta } = alertActions
+    let { nuevoUsuario } = userActions
 
     async function NewMentor(event) {
         event.preventDefault()
@@ -24,12 +24,12 @@ export default function NewMentor() {
             }
         })
         try {
-            let res = await axios.post(apiUrl+'usuarios',data)
-            //console.log(res.data.message)
-            if (res.data.success) {
+            let res = await dispatch(nuevoUsuario(data))
+            console.log(res)
+            if (res.payload.success) {
                 alert('creado!')
             } else {
-                dispatch(alerta(res.data.message))
+                dispatch(alerta(res.payload.response))
             }
         } catch(error) {
             console.log(error.message)

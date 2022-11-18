@@ -1,28 +1,25 @@
 import React, {useEffect,useState} from 'react'
-import axios from 'axios'
+import { useDispatch,useSelector } from 'react-redux'
+import userActions from './../../store/actions/usuario'
 import Boton from '../../components/Boton/Boton'
 import ComidaHobby from '../../components/ComidaHobby/ComidaHobby'
 import EdadFechaMail from '../../components/EdadFechaMail/EdadFechaMail'
 import NombreFoto from '../../components/NombreFoto/NombreFoto'
-import apiUrl from './../../url'
 
 export default function Carousel() {
   
   let [numero,setNumero] = useState(0)
   let [abrir,setAbrir] = useState(false)
   let [id,setId] = useState(0)
-  let [perfiles,setPerfiles] = useState([])
+  let dispatch = useDispatch()
+  let { obtenerCarousel } = userActions
+  const { carousel } = useSelector(store => store.usuario)
 
-  useEffect(()=> {fetchApi()},[])
-
-  async function fetchApi() {
-    try {
-      let res = await axios.get(apiUrl+'usuarios')
-      setPerfiles(res.data.response)
-    } catch(error) {
-      console.log(error.message)
-    }
-  }
+  useEffect(()=> {
+    if (carousel.length===0) {
+      dispatch(obtenerCarousel())
+    }    
+  },[])
 
   useEffect(
     ()=>{  
@@ -44,7 +41,7 @@ export default function Carousel() {
   )
 
   function next() {
-    if (numero<perfiles.length-1) {
+    if (numero<carousel.length-1) {
       setNumero(numero+1)
     } else {
       setNumero(0)
@@ -57,7 +54,7 @@ export default function Carousel() {
     if (numero>0) {
       setNumero(numero-1)
     } else {
-      setNumero(perfiles.length-1)
+      setNumero(carousel.length-1)
     }
     console.log('se ejecutó prev')
     clearInterval(id)
@@ -69,20 +66,20 @@ export default function Carousel() {
 
   return (
     <div className='card black'>
-      {perfiles[0] ?
+      {carousel.length>0 ?
         <>
-          <NombreFoto nombre={perfiles[numero].nombre} foto={perfiles[numero].foto}/>
+          <NombreFoto nombre={carousel[numero].nombre} foto={carousel[numero].foto}/>
           {abrir ?
             (<p className='gray flex j-center a-center' onClick={open}>mas info</p>) :
             (<>
               <p className='gray flex j-center a-center' onClick={open}>ocultar info</p>
               <div className='edad-fecha'>
-                <EdadFechaMail campo='Edad' dato={perfiles[numero].edad} margen='r25' ancho='edad' />
-                <EdadFechaMail campo='Fecha' dato={perfiles[numero].nacimiento} margen='l25' ancho='fecha' />
+                <EdadFechaMail campo='Edad' dato={carousel[numero].edad} margen='r25' ancho='edad' />
+                <EdadFechaMail campo='Fecha' dato={carousel[numero].nacimiento} margen='l25' ancho='fecha' />
               </div>
-              <EdadFechaMail campo='Mail' dato={perfiles[numero].mail} />
-              <ComidaHobby campo='Comidas' datos={perfiles[numero].comidas} />
-              <ComidaHobby campo='Hobbies' datos={perfiles[numero].hobbies} />
+              <EdadFechaMail campo='Mail' dato={carousel[numero].mail} />
+              <ComidaHobby campo='Comidas' datos={carousel[numero].comidas} />
+              <ComidaHobby campo='Hobbies' datos={carousel[numero].hobbies} />
             </>)}
           <div className='flex j-center a-center'>
             <Boton tipo='anterior' margen='r25' onClick={prev} />
