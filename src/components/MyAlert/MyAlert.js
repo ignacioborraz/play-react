@@ -2,12 +2,12 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 
 export default function MyAlert() {
-    let { message } = useSelector(store => store.alerta)
-    console.log(message)
+    let { vista,mensaje } = useSelector(store => store.alerta)
+    //console.log(vista)
     return (
-        message.view &&
+        vista &&
             <>
-            {message.message.map((every,index) => <p key={index}>{every}</p>)}
+            {mensaje.map((every,index) => <p key={index}>{every}</p>)}
             </>
     )
 }

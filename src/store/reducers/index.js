@@ -1,7 +1,9 @@
-import alerta from './alerta';
+import alertReducer from './alerta'
+import userReducer from './usuario'
 
 const mainReducer = {
-    alerta: alerta
+    alerta: alertReducer,
+    usuario: userReducer
 }
 
 export default mainReducer
