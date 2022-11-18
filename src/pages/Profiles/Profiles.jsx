@@ -5,21 +5,28 @@ import CardProfile from '../../components/CardProfile/CardProfile'
 
 export default function Profiles() {
 
-  let [recarga,setRecarga] = useState(false)
   let text = useRef()
   let dispatch = useDispatch()
   let { obtenerUsuarios } = userActions
 
-  let perfiles = useSelector(store => store.usuario.perfiles)
+  const { perfiles, value } = useSelector(store => store.usuario)
 
   useEffect(()=> {
-    let value = text.current.value.trim()
-    dispatch(obtenerUsuarios(value))
-  },[recarga])
+    if (value==="") {
+      filtrar()
+    } else {
+      dispatch(obtenerUsuarios(value))
+    }
+  },[])
+
+  function filtrar() {
+    let texto = text.current.value.trim()
+    dispatch(obtenerUsuarios(texto))
+  }
 
   return (
     <div className='flex column a-center'>
-      <input type="text" placeholder='buscar por nombre' ref={text} onKeyUp={()=>setRecarga(!recarga)} />
+      <input type="text" placeholder='buscar por nombre' ref={text} onKeyUp={filtrar} />
      <div className='flex wrap j-center'>
         {perfiles?.map((cadaPerfil,index) => <CardProfile key={index} datos={cadaPerfil}/>)}
       </div>
