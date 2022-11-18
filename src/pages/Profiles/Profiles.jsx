@@ -1,7 +1,8 @@
-import React, {useEffect,useState,useRef} from 'react'
+import React, {useEffect,useRef} from 'react'
 import { useSelector,useDispatch } from 'react-redux'
 import userActions from '../../store/actions/usuario'
 import CardProfile from '../../components/CardProfile/CardProfile'
+import NewMentor from './../NewMentor/NewMentor';
 
 export default function Profiles() {
 
@@ -30,6 +31,7 @@ export default function Profiles() {
      <div className='flex wrap j-center'>
         {perfiles?.map((cadaPerfil,index) => <CardProfile key={index} datos={cadaPerfil}/>)}
       </div>
+      <NewMentor />
     </div>
   )
 
