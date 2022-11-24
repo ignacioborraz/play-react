@@ -22,12 +22,20 @@ code {
   width: 100%;
 }
 
+.w50 {
+  width: 50%;
+}
+
 .flex {
   display: flex;
 }
 
 .column {
   flex-direction: column;
+}
+
+.j-between {
+  justify-content: space-between;
 }
 
 .j-center {
@@ -117,4 +125,10 @@ p {
   width: 50%;
   font-size: 20px;
   font-weight: 600;
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  right: 50%;
 }

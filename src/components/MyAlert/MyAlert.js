@@ -3,11 +3,14 @@ import { useSelector } from 'react-redux'
 
 export default function MyAlert() {
     let { vista,mensaje } = useSelector(store => store.alerta)
-    //console.log(vista)
+    console.log(mensaje)
     return (
         vista &&
             <>
-            {mensaje.map((every,index) => <p key={index}>{every}</p>)}
+            {typeof mensaje==='string' ? 
+                (<p>{mensaje}</p>) :
+                (mensaje.map((every,index) => <p key={index}>{every}</p>))
+            }
             </>
     )
 }

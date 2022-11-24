@@ -2,7 +2,6 @@ import { useRef } from 'react'
 import { useDispatch } from 'react-redux'
 import alertActions from '../../store/actions/alerta'
 import userActions from './../../store/actions/usuario'
-import SignInGoogle from '../../components/SignInGoogle/SignInGoogle'
 import './newMentor.css'
 
 export default function NewMentor() {
@@ -12,7 +11,7 @@ export default function NewMentor() {
     let { alerta } = alertActions
     let { nuevoUsuario } = userActions
 
-    async function NewMentor(event) {
+    async function crear(event) {
         event.preventDefault()
         let data = {}
         Array.from(form.current).forEach(input=>{
@@ -38,19 +37,17 @@ export default function NewMentor() {
     }
 
     return (
-        <>
-            <form onSubmit={NewMentor} ref={form} className='New-container'>
-                <input type='text' name='nombre' placeholder='nombre' className='New-text'/>
-                <input type='number' name='edad' placeholder='edad' className='New-text'/>
-                <input type='date'name='nacimiento' placeholder='nacimiento' className='New-text'/>
-                <input type='url' name='foto' placeholder='foto' className='New-text'/>
-                <input type='mail' name='mail' placeholder='mail' className='New-text'/>
-                <input type='text' name='hobbies' placeholder='hobbies (separar con comas)' className='New-text'/>
-                <input type='text' name='comidas' placeholder='comidas (separar con comas)' className='New-text'/>
-                <input type="submit" className='New-title' required value='registrar!' />
-            </form>
-            <SignInGoogle />
-        </>
+        <form onSubmit={crear} ref={form} className='New-container'>
+            <input type='text' name='nombre' placeholder='nombre' className='New-text'/>
+            <input type='number' name='edad' placeholder='edad' className='New-text'/>
+            <input type='date'name='nacimiento' placeholder='nacimiento' className='New-text'/>
+            <input type='url' name='foto' placeholder='foto' className='New-text'/>
+            <input type='mail' name='mail' placeholder='mail' className='New-text'/>
+            <input type='password' name='contraseña' placeholder='contraseña' className='New-text'/>
+            <input type='text' name='hobbies' placeholder='hobbies (separar con comas)' className='New-text'/>
+            <input type='text' name='comidas' placeholder='comidas (separar con comas)' className='New-text'/>
+            <input type="submit" className='New-title' required value='registrar!' />
+        </form>
     )
 
 }

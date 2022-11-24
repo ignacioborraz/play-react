@@ -17,11 +17,11 @@ export default function SignInGoogle() {
         google.accounts.id.initialize({
             client_id: REACT_APP_ID,
             callback: handleCredentialResponse,
-            context: 'signup'
+            context: 'signin'
         });
         google.accounts.id.renderButton(
             buttonDiv.current,
-            { theme: "outline", size: "medium", text: 'signup_with' }
+            { theme: "outline", size: "medium", text: 'signin_with' }
         );
     }, [])
 
