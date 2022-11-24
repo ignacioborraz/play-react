@@ -42,19 +42,28 @@ const userReducer = createReducer(initialState,
             return newState
         })
         .addCase(ingresar.fulfilled, (state, action) => {
-            console.log(action.payload.response.token)
-            console.log(action.payload.response.user)
-            const { user,token } = action.payload.response
-            localStorage.setItem('token',JSON.stringify({ token: { user: token } }))
-            let newState = {
-                ...state,
-                nombre: user.nombre,
-                foto: user.foto,
-                online: true,
-                token: token
-            }
-            //console.log(newState)
-            return newState    
+            console.log(action.payload.response)
+            const { success,response } = action.payload
+            if (success) {
+                const { user,token } = response
+                localStorage.setItem('token',JSON.stringify({ token: { user: token } }))
+                let newState = {
+                    ...state,
+                    nombre: user.nombre,
+                    foto: user.foto,
+                    online: true,
+                    token: token
+                }
+                //console.log(newState)
+                return newState
+            } else {
+                let newState = {
+                    ...state,
+                    mensaje: response
+                }
+                //console.log(newState)
+                return newState
+            } 
         })
         .addCase(salir.fulfilled, (state, action) => {
             console.log(action.payload.response)
