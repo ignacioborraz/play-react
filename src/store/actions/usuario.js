@@ -55,49 +55,73 @@ const obtenerCarousel = createAsyncThunk('obtenerCarousel', async (value) => {
     }
 })
 
-const ingresar = createAsyncThunk('ingresar', async (data) => {
+const ingresar = createAsyncThunk('ingresar', async (datos) => { //datos son el objeto que viene del formulario
     let url = `${apiUrl}auth/signin`
     try {
-        let user = await axios.post(url,data)
-        console.log(user.data.response)
-        return { //el return es el payload (carga) que recibe el reductor
+        let user = await axios.post(url,datos)
+        //console.log(user.data.response)
+        return {
             success: true,
             response: user.data.response
         }
     } catch (error) {
-        console.log(error)
-        return { //el return es el payload (carga) que recibe el reductor
+        console.log(error.response)
+        return {
             success: false,
             response: error.response.data.message
         }
     }
 })
 
-const salir = createAsyncThunk('salir', async (token) => {
+const salir = createAsyncThunk('salir', async(token) => {
     let url = `${apiUrl}auth/signout`
-    const headers = {headers: {'Authorization': 'Bearer '+token}}
+    let headers = {headers: {'Authorization': `Bearer ${token}`}}
     try {
         let user = await axios.put(url,null,headers)
-        console.log(user.data)
-        return { //el return es el payload (carga) que recibe el reductor
+        //console.log(user.data)
+        return {
             success: true,
             response: user.data.message
         }
     } catch (error) {
-        console.log(error)
-        return { //el return es el payload (carga) que recibe el reductor
+        console.log(error.response)
+        return {
             success: false,
             response: error.response.data.message
         }
     }
 })
+
+const reingresar = createAsyncThunk('reingresar', async (token) => {
+    let url = `${apiUrl}auth/token`
+    let headers = {headers: {'Authorization': `Bearer ${token}`}}
+    try {
+        let user = await axios.post(url,null,headers)
+        console.log(user.data.response)
+        return {
+            success: true,
+            response: {
+                user: user.data.response,
+                token
+            }
+        }
+    } catch (error) {
+        console.log(error.response)
+        return {
+            success: false,
+            response: error.response.data.message
+        }
+    }
+})
+
 
 const userActions= {
     obtenerUsuarios,
     nuevoUsuario,
     obtenerCarousel,
     ingresar,
-    salir
+    salir,
+    reingresar
 }
 
 export default userActions

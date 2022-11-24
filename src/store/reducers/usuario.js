@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit'
 import userActions from '../actions/usuario'
 
-const { obtenerUsuarios,nuevoUsuario,obtenerCarousel,ingresar,salir } = userActions
+const { obtenerUsuarios,nuevoUsuario,obtenerCarousel,ingresar,salir,reingresar } = userActions
 
 const initialState = {
     value: "",
@@ -42,11 +42,12 @@ const userReducer = createReducer(initialState,
             return newState
         })
         .addCase(ingresar.fulfilled, (state, action) => {
-            console.log(action.payload.response)
+            //console.log(action.payload.response)
             const { success,response } = action.payload
             if (success) {
-                const { user,token } = response
-                localStorage.setItem('token',JSON.stringify({ token: { user: token } }))
+                let { user,token } = response //este token es el codigo que viene del backend
+                localStorage.setItem('token',JSON.stringify({token: {user: token}})) //este objeto token va a guardar
+                //la propiedad con el nombre del tipo de token y el token que guarda
                 let newState = {
                     ...state,
                     nombre: user.nombre,
@@ -54,22 +55,57 @@ const userReducer = createReducer(initialState,
                     online: true,
                     token: token
                 }
-                //console.log(newState)
                 return newState
             } else {
                 let newState = {
                     ...state,
                     mensaje: response
                 }
-                //console.log(newState)
                 return newState
-            } 
+            }
         })
         .addCase(salir.fulfilled, (state, action) => {
+            const { success,response } = action.payload
+            if (success) {
+                localStorage.removeItem('token')
+                let newState = {
+                    ...state,
+                    nombre: '',
+                    foto: '',
+                    online: false,
+                    token: ''
+                }
+                return newState
+            } else {
+                let newState = {
+                    ...state,
+                    mensaje: response
+                }
+                return newState
+            }
+        })
+        .addCase(reingresar.fulfilled, (state, action) => {
             console.log(action.payload.response)
-            localStorage.removeItem('token')
-            return initialState    
-        })   
+            const { success,response } = action.payload
+            if (success) {
+                let { user,token } = response
+                let newState = {
+                    ...state,
+                    nombre: user.nombre,
+                    foto: user.foto,
+                    online: true,
+                    token: token
+                }
+                return newState
+            } else {
+                let newState = {
+                    ...state,
+                    mensaje: response
+                }
+                return newState
+            }
+        })        
+
     }
 )
 

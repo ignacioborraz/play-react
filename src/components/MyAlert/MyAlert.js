@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 
 export default function MyAlert() {
     let { vista,mensaje } = useSelector(store => store.alerta)
-    console.log(mensaje)
+    //console.log(mensaje)
     return (
         vista &&
             <>
