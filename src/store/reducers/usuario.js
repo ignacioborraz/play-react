@@ -60,7 +60,7 @@ const userReducer = createReducer(initialState,
             console.log(action.payload.response)
             localStorage.removeItem('token')
             return initialState    
-        })
+        })   
     }
 )
 
