@@ -1,12 +1,16 @@
 import { createReducer } from '@reduxjs/toolkit'
 import userActions from '../actions/usuario'
 
-const { obtenerUsuarios,nuevoUsuario,obtenerCarousel } = userActions
+const { obtenerUsuarios,nuevoUsuario,obtenerCarousel,ingresar,salir } = userActions
 
 const initialState = {
     value: "",
     perfiles: [],
-    carousel: []
+    carousel: [],
+    nombre: "",
+    foto: "",
+    online: false,
+    token: ""
 }
 
 const userReducer = createReducer(initialState,
@@ -36,7 +40,27 @@ const userReducer = createReducer(initialState,
             }
             //console.log(newState)
             return newState
-        })        
+        })
+        .addCase(ingresar.fulfilled, (state, action) => {
+            console.log(action.payload.response.token)
+            console.log(action.payload.response.user)
+            const { user,token } = action.payload.response
+            localStorage.setItem('token',JSON.stringify({ token: { user: token } }))
+            let newState = {
+                ...state,
+                nombre: user.nombre,
+                foto: user.foto,
+                online: true,
+                token: token
+            }
+            //console.log(newState)
+            return newState    
+        })
+        .addCase(salir.fulfilled, (state, action) => {
+            console.log(action.payload.response)
+            localStorage.removeItem('token')
+            return initialState    
+        })   
     }
 )
 
